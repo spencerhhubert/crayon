@@ -23,6 +23,22 @@ let polygon = [];
 let point_node;
 let color = "yellow";
 
+function handler(click) {
+	cords = [click.pageX, click.pageY];
+	polygon.push(cords);
+	clicks += 1;
+	if(clicks==1){
+		paintPoint(cords);
+		return;
+	}
+	if(complete(cords)){
+		paintLine(polygon[clicks-2], polygon[0]);
+		changeColor("Chartreuse");
+	} else {
+		paintPoint(cords);
+		paintLine(polygon[clicks-2], polygon[clicks-1]);
+	}
+}
 function paintPoint(cords) {
 	point_node = document.createElementNS(svgNS, 'circle');
 	point_node.setAttribute("cx", cords[0]);
@@ -43,23 +59,44 @@ function paintLine(cords1, cords2) {
 	svg_node.appendChild(line_node);
 }
 
-function checkIfDone(cords) {
-	if (Math.abs(cords[0]-polygon[1][0]) < 20 && Math.abs(cords[1]-polygon[0][1]) < 20) {
-		console.log("done")
+function complete(cords) {
+	if (Math.abs(cords[0]-polygon[0][0]) < 20 && Math.abs(cords[1]-polygon[0][1]) < 20) {
 		return true;
 	} else {return false;}
 }
 
-function handler(click) {
-	cords = [click.pageX, click.pageY];
-	polygon.push(cords);
-	paintPoint(cords);
-	clicks += 1;
-	if(clicks==1){
-		return;
+function changeColor(color) {
+	for(let i=0;i<svg_node.children.length;i++){
+		svg_node.children[i].setAttribute("stroke", color);
+		svg_node.children[i].setAttribute("fill", color);
 	}
-	checkIfDone(cords);
-	paintLine(polygon[clicks-2], polygon[clicks-1])
+}
+
+function saveCords() {
+	let cords_string = "";
+	for(let i=0;i<polygon.length;i++){
+		cords_string += `${polygon[i][0]} ${polygon[i][1]}\n`;
+	}
+	download(cords_string, "banana", "text");
+}
+
+// Function to download data to a file
+function download(data, filename, type) {
+    var file = new Blob([data], {type: type});
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
 }
 
 function printCords() {
@@ -67,3 +104,4 @@ function printCords() {
 		console.log(polygon[i])
 	}
 }
+

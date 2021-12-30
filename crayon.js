@@ -1,30 +1,57 @@
 const svgNS = "http://www.w3.org/2000/svg";
-let image_path = "test_subject.jpg";
-let body_node = document.body;
-let container_node = document.getElementById("canvas");
-let image_node = document.getElementById("img");
-image_node.setAttribute("src", image_path);
-svg_node = document.getElementById('svg');
 
-//wait for image to load and then draw vector canvas
-image_node.onload = (event) => {
-	let w = image_node.offsetWidth;
-	let h = image_node.offsetHeight;
-	svg_node.setAttribute("viewbox",  `0, 0, ${w}, ${h}`);
-	svg_node.setAttribute("width", w);
-	svg_node.setAttribute("height", h);
-	container_node.appendChild(svg_node);
+function begin() {
+	imgs = getList().split(", ");
+	imgs = imgs.map(x => x.replace("'", ""));
+	imgs = imgs.map(x => x.replace("'", ""));
+	current = 0;
+	setupDraw(imgs[current]);
 }
 
-svg_node.onclick = function(click){handler(click)};
-let clicks = 0;
+let dir = "imgs/";
+let current;
+let imgs = [];
+let body_node;
+let container_node;
+let image_node;
+let clicks;
 let cords;
 let polygon = [];
 let point_node;
-let color = "yellow";
+let color;
+
+function setupDraw(img) {
+	body_node = document.body;
+	container_node = document.getElementById("canvas");
+	image_node = document.getElementById("img");
+	image_node.setAttribute("src", dir + img);
+	svg_node = document.getElementById('svg');
+	svg_node.innerHTML = '';
+	//wait for image to load and then draw vector canvas
+	image_node.onload = (event) => {
+		let w = image_node.offsetWidth;
+		let h = image_node.offsetHeight;
+		svg_node.setAttribute("viewbox",  `0, 0, ${w}, ${h}`);
+		svg_node.setAttribute("width", w);
+		svg_node.setAttribute("height", h);
+		container_node.appendChild(svg_node);
+	}
+
+	svg_node.onclick = function(click){handler(click)};
+	clicks = 0;
+	cords;
+	polygon = [];
+	point_node;
+	color = "yellow";
+}
+
+function next() {
+	current += 1;
+	setupDraw(imgs[current]);
+}
 
 function handler(click) {
-	cords = [click.pageX, click.pageY];
+	cords = [click.offsetX, click.offsetY];
 	polygon.push(cords);
 	clicks += 1;
 	if(clicks==1){
@@ -35,6 +62,7 @@ function handler(click) {
 		paintLine(polygon[clicks-2], polygon[0]);
 		changeColor("Chartreuse");
 		saveCords();
+		next();
 	} else {
 		paintPoint(cords);
 		paintLine(polygon[clicks-2], polygon[clicks-1]);
@@ -78,7 +106,7 @@ function saveCords() {
 	for(let i=0;i<polygon.length;i++){
 		cords_string += `${polygon[i][0]} ${polygon[i][1]}\n`;
 	}
-	download(cords_string, "banana", "text");
+	download(cords_string, `${imgs[current]}.txt`, "text");
 }
 
 // Function to download data to a file
@@ -106,3 +134,7 @@ function printCords() {
 	}
 }
 
+function getList() {
+	let input_node = document.getElementById("list");
+	return input_node.value;
+}

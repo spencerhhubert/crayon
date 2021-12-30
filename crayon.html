@@ -1,0 +1,28 @@
+<head>
+	<style>
+		.canvas {
+			position: relative;
+		}
+		.canvas img, .canvas svg {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.canvas svg {
+			z-index: 10;
+		}
+		.canvas . {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+</head>
+<div class="canvas" id="canvas">
+	<img id="img">
+	<svg id="svg"></svg>
+</div>
+<script src="crayon.js"></script>

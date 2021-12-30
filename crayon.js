@@ -43,6 +43,13 @@ function paintLine(cords1, cords2) {
 	svg_node.appendChild(line_node);
 }
 
+function checkIfDone(cords) {
+	if (Math.abs(cords[0]-polygon[1][0]) < 20 && Math.abs(cords[1]-polygon[0][1]) < 20) {
+		console.log("done")
+		return true;
+	} else {return false;}
+}
+
 function handler(click) {
 	cords = [click.pageX, click.pageY];
 	polygon.push(cords);
@@ -51,7 +58,7 @@ function handler(click) {
 	if(clicks==1){
 		return;
 	}
-	//need function to check if really close to click 1
+	checkIfDone(cords);
 	paintLine(polygon[clicks-2], polygon[clicks-1])
 }
 

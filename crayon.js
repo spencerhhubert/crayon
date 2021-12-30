@@ -34,6 +34,7 @@ function handler(click) {
 	if(complete(cords)){
 		paintLine(polygon[clicks-2], polygon[0]);
 		changeColor("Chartreuse");
+		saveCords();
 	} else {
 		paintPoint(cords);
 		paintLine(polygon[clicks-2], polygon[clicks-1]);

@@ -1,5 +1,0 @@
-this model should not just outline the pieces
-
-it will do two things. that and also detect when a piece is present. if there's no piece then it no outline.
-
-training material will be a long string of square images out of opencv. just all the frames of the video. I will then go through it and label them with the javascript program. the javascript programs, or something else, needs to help me get through them quicjky. on blank images, I should click next and the javascript program just adds an empty text file for that image. just name the text file after the image.

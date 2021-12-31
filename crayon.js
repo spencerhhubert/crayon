@@ -8,7 +8,7 @@ function begin() {
 	setupDraw(imgs[current]);
 }
 
-let dir = "imgs/";
+let dir = "data/images/";
 let current;
 let imgs = [];
 let body_node;

@@ -1,7 +1,9 @@
+let list = "DSC06976.JPG, DSC06975.JPG, test_subject.jpg, ";
 const svgNS = "http://www.w3.org/2000/svg";
 
 function begin() {
-	imgs = getList().split(", ");
+	//imgs = getList().split(", ");
+	imgs = list.split(", ");
 	imgs = imgs.map(x => x.replace("'", ""));
 	imgs = imgs.map(x => x.replace("'", ""));
 	current = 0;

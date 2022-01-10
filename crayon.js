@@ -51,10 +51,10 @@ function setupDraw(img) {
 	color = "yellow";
 }
 
-function next() {
+function next(save) {
 	current += 1;
 	setupDraw(imgs[current]);
-	saveCords();
+	if(save){saveCords();}
 }
 
 function handler(click) {
@@ -67,9 +67,11 @@ function handler(click) {
 	}
 	if(complete(cords)){
 		paintLine(polygon[clicks-2], polygon[0]);
+		//make these cords the same as the starting ones
+		polygon[clicks-1]=polygon[0];
 		changeColor("Chartreuse");
 		saveCords();
-		next();
+		next(false);
 	} else {
 		paintPoint(cords);
 		paintLine(polygon[clicks-2], polygon[clicks-1]);
@@ -96,7 +98,8 @@ function paintLine(cords1, cords2) {
 }
 
 function complete(cords) {
-	if (Math.abs(cords[0]-polygon[0][0]) < 20 && Math.abs(cords[1]-polygon[0][1]) < 20) {
+	threshold = 5;
+	if (Math.abs(cords[0]-polygon[0][0]) < threshold && Math.abs(cords[1]-polygon[0][1]) < threshold) {
 		return true;
 	} else {return false;}
 }

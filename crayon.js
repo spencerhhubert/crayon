@@ -52,7 +52,6 @@ function setupDraw(img) {
 }
 
 function next(save) {
-	current += 1;
 	setupDraw(imgs[current]);
 	if(save){saveCords();}
 }
@@ -117,6 +116,7 @@ function saveCords() {
 		cords_string += `${polygon[i][0]} ${polygon[i][1]}\n`;
 	}
 	download(cords_string, `${cut_dir(imgs[current])}.txt`, "text");
+	current += 1;
 }
 
 // Function to download data to a file

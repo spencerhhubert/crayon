@@ -30,6 +30,7 @@ def makePoints(path):
 		cord = list(map(int, lines[i].split()));
 		output[i] = cord;
 	output = np.int32([output]);
+	print(output);
 	return output;
 
 def partNum(filename):
@@ -40,16 +41,15 @@ for label in labels:
 	img_name = chopOffEnd(label, 4);
 	img_p = images_p + partNum(img_name) + '/' + img_name;
 	label_p = labels_p + label;
-	print(img_p)
-	print(label_p)
 	img = cv2.imread(img_p);
 	height, width = img.shape[0], img.shape[1];
-	print(img.shape)
 	zeroed = np.zeros([height, width], dtype=np.uint8);
 	verts = makePoints(label_p);
 	# this will create an image where every pixel is 0 except the ones where an object exists and the value is 1.
 	# with a future version of crayon multiple labels should be able to be added at once and the value of the respective pixel corresponds to it's label. like brick 1 is 1, brick 2 is 2.
-	cv2.fillPoly(zeroed, verts, 1);
+	if(len(verts) > 1):
+		cv2.fillPoly(zeroed, verts, 1);
 	cv2.imwrite(masked_p + img_name + "_masked.jpg", zeroed);
-	cv2.imshow("cropped", zeroed);
-	cv2.waitKey(0);
+	#cv2.imshow("cropped", zeroed);
+	#cv2.waitKey(0);
+	print(label + " masked\n");

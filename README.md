@@ -14,3 +14,4 @@ those points and images were later loaded into a pytorch model to do cropped aut
 
 ![alt text](https://raw.githubusercontent.com/spencerhhubert/crayon/main/example_pic1.png)
 ![alt text](https://raw.githubusercontent.com/spencerhhubert/crayon/main/example_pic2.png)
+![alt text](https://raw.githubusercontent.com/spencerhhubert/crayon/main/example_pic4.png)

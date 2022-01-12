@@ -47,9 +47,10 @@ for label in labels:
 	verts = makePoints(label_p);
 	# this will create an image where every pixel is 0 except the ones where an object exists and the value is 1.
 	# with a future version of crayon multiple labels should be able to be added at once and the value of the respective pixel corresponds to it's label. like brick 1 is 1, brick 2 is 2.
-	if(len(verts) > 1):
+	if(len(verts[0]) > 0):
 		cv2.fillPoly(zeroed, verts, 1);
+		zeroed[zeroed > 1] = 1;
 	cv2.imwrite(masked_p + img_name + "_masked.jpg", zeroed);
 	#cv2.imshow("cropped", zeroed);
 	#cv2.waitKey(0);
-	print(label + " masked\n");
+	print(label + " masked");

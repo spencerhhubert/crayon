@@ -2,6 +2,8 @@
 
 a tool for quickly generating a list of cordinates in an image representing the vertices of a polygon outlining the lego piece. this was used to train an image segmentation model
 
+you can test it by clicking 'begin' at [crayon.html](https://spencerhhubert.github.io/crayon/crayon.html)
+
 this is for the [nexus project](https://github.com/spencerhhubert/nexus).
 
 once the images have been prepared in the data/images/ folder, there is some python used to queue them up into a javascript file so that html and javascript can be used for the gui end

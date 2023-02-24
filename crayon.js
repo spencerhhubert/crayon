@@ -1,4 +1,4 @@
-let data_paths = ["data/source/8.3.jpg", "data/source/strange_shape.jpg", ]
+let data_paths = ["data/source/0.jpg", "data/source/1.jpg", "data/source/2.jpg", "data/source/3.jpg", "data/source/4.jpg", "data/source/5.jpg", "data/source/6.jpg", "data/source/7.jpg", ]
 
 const svgNS = "http://www.w3.org/2000/svg";
 

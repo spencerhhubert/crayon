@@ -4,6 +4,9 @@ import time
 import numpy as np
 import cv2
 
+def chopOffEnd(string, n):
+	return string[:len(string) - n];
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--data_path', required=True)
@@ -36,18 +39,21 @@ if __name__ == "__main__":
         #go through data_path/cords and turn them into numpy arrays in data_path/labels
         for raw in os.listdir(os.path.join(data_path, 'cords')):
             with open(os.path.join(data_path, 'cords', raw)) as f:
-                cords = f.readlines()
-                cords = [c.split() for c in cords]
-                cords = [[int(c[0]), int(c[1])] for c in cords]
-                cords = np.array(cords)
-
+                lines = f.readlines()
+                for l in lines:
+                    if len(l) < 3:
+                        lines.remove(l)
+                num_cords = len(lines)
+                temp = np.zeros((num_cords, 2), dtype=int)
+                for i in range(num_cords):
+                    cord = list(map(int, lines[i].split()))
+                    temp[i] = cord
+                cords = np.int32([temp])
                 img_name = os.path.basename(chopOffEnd(raw, 4))
-                img_path = os.path.join(data_path, 'source', img_name)
-                img = np.array(Image.open(img_path))
+                img_path = os.path.join(data_path, 'source', img_name+".jpg") #man this could be refactored
+                img = np.array(cv2.imread(img_path))
                 mask = np.zeros(img.shape[:2], dtype=np.int32)
                 cv2.fillPoly(mask, [cords], (255))
-                print(img)
-                exit()
-                np.save(os.path.join(data_path, 'labels', raw+".npy"), cords)
+                np.save(os.path.join(data_path, 'labels', img_name+".npy"), cords)
         time.sleep(10)
 

@@ -54,6 +54,6 @@ if __name__ == "__main__":
                 img = np.array(cv2.imread(img_path))
                 mask = np.zeros(img.shape[:2], dtype=np.int32)
                 cv2.fillPoly(mask, [cords], (255))
-                np.save(os.path.join(data_path, 'labels', img_name+".npy"), cords)
+                np.save(os.path.join(data_path, 'labels', img_name+".npy"), mask)
         time.sleep(10)
 

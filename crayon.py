@@ -20,7 +20,15 @@ if __name__ == "__main__":
     if not os.path.exists(os.path.join(data_path, 'source')):
         os.makedirs(os.path.join(data_path, 'source'))
 
-    all_data_pathes = [f"{data_path}/source/{d}" for d in os.listdir(os.path.join(data_path, 'source'))]
+    existing_work = os.listdir(os.path.join(data_path, 'cords'))
+    all_pics = os.listdir(os.path.join(data_path, 'source'))
+    keepers = []
+    for pic in all_pics:
+        if chopOffEnd(pic, 4) + ".txt" not in existing_work:
+            keepers.append(pic)
+    
+    all_data_pathes = [f"{data_path}/source/{d}" for d in keepers]
+
     all_data_pathes.sort()
     js_line = "let data_paths = ["
     for p in all_data_pathes:

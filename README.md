@@ -8,6 +8,8 @@ open the list of files in a local html, click with the mouse to make a polygon o
 then you can train a model to do that for you
 
 ![alt text](https://raw.githubusercontent.com/spencerhhubert/crayon/main/assets/example_pic3.png)
+![alt text](https://raw.githubusercontent.com/spencerhhubert/crayon/main/assets/example_pic1.png)
+![alt text](https://raw.githubusercontent.com/spencerhhubert/crayon/main/assets/example_pic4.png)
 
 ## usage
 
